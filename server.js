@@ -26,7 +26,7 @@ const AUTH_OPTIONS = {
 };
 
 function verifyCallback(accessToken, refreshToken, profile, done) {
-  console.log('Google profile', profile);
+  // console.log('Google profile', profile);
   done(null, profile);
 }
 
@@ -56,7 +56,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 function checkLoggedIn(req, res, next) {
-  console.log('Current user is: ', req.user);
+  // console.log('Current user is: ', req.user);
   const isLoggedIn = req.isAuthenticated() && req.user;
   if (!isLoggedIn) {
     return res.status(401).json({
@@ -80,8 +80,8 @@ app.get(
     successRedirect: '/',
   }),
   (req, res) => {
-    // res.redirect();
-    console.log('Google called us back!');
+    res.redirect();
+    // console.log('Google called us back!');
   }
 );
 
@@ -105,11 +105,11 @@ app.get('/', (req, res) => {
 https
   .createServer(
     {
-      key: fs.readFileSync('key.pem'),
-      cert: fs.readFileSync('cert.pem'),
+      key: fs.readFileSync('./key-pairs/key.pem'),
+      cert: fs.readFileSync('./key-pairs/cert.pem'),
     },
     app
   )
   .listen(PORT, () => {
-    console.log(`Listening on PORT ${PORT}`);
+    // console.log(`Listening on PORT ${PORT}`);
   });
